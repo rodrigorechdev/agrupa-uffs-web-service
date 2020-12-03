@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.agrupauffs.DTO.LoginDTO;
 import br.com.agrupauffs.business.usuarios.LoginBusiness;
 
+
 @RequestMapping("usuarios/")
 @RestController
 public class UsuariosController {
