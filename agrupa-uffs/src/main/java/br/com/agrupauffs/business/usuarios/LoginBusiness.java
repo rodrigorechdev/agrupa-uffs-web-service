@@ -1,4 +1,4 @@
-package br.com.agrupauffs.business;
+package br.com.agrupauffs.business.usuarios;
 
 public class LoginBusiness {
 	

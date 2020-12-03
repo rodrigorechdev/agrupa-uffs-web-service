@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrupauffs.DTO.LoginDTO;
-import br.com.agrupauffs.business.LoginBusiness;
+import br.com.agrupauffs.business.usuarios.LoginBusiness;
 
 @RequestMapping("usuarios/")
 @RestController
