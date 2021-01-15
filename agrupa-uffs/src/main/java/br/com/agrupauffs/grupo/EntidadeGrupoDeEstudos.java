@@ -17,7 +17,7 @@ import lombok.Setter;
 public class EntidadeGrupoDeEstudos {
 	
 	@Id
-	@Column(name = "id_ grupo_estudo")
+	@Column(name = "id_grupo_estudo")
 	int id;
 
 	@Column(name = "dt_atz")

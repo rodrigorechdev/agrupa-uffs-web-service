@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 import br.com.agrupauffs.usuario.EntidadeUsuario;
 
+// @Entity se eu coloco dá erro, ver resposta do JAD https://stackoverflow.com/questions/40058001/error-creating-bean-with-name-entitymanagerfactory-defined-in-class-path-resou
 @Table(name = "grupo_estudo_usuario")
 public class EntidadeGrupoEstudoUsuario {
 
