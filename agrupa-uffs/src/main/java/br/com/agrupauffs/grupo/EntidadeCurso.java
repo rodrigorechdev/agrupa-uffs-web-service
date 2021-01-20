@@ -12,24 +12,21 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "grupo_estudo")
+@Table(name = "curso")
 @Entity
-public class EntidadeGrupoDeEstudos {
-	
-	@Id
-	@Column(name = "id_grupo_estudo")
-	int idGrupo;
+public class EntidadeCurso {
+    
+    @Id
+	@Column(name = "id_curso")
+	int idCurso;
+
+	@Column(name = "nm_curso")
+	String nomeCurso;
+
+	@Column(name = "descricao")
+	String descricao;
 
 	@Column(name = "dt_atz")
 	Date data;
 
-	@Column(name = "nm_grupo")
-	String nomeDoGrupo;
-
-	@Column(name = "descricao")
-	String descricao;
-	
-	@Column(name = "privado")
-	Boolean privado;
-	 
 }

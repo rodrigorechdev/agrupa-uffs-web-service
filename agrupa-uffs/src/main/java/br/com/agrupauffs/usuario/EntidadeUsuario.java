@@ -2,6 +2,7 @@ package br.com.agrupauffs.usuario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Entity
 public class EntidadeUsuario {
 
+	@Id
 	@Column(name = "id_usuario")
 	String idUsuario;
 	
