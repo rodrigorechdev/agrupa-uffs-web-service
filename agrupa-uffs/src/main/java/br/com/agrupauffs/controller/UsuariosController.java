@@ -15,9 +15,10 @@ import br.com.agrupauffs.business.usuarios.LoginBusiness;
 public class UsuariosController {
 
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean validarLogin(@RequestBody LoginDTO login){
+	public boolean validarLogin(@RequestBody LoginDTO login) {
 		var loginBusiness = new LoginBusiness();
 		return loginBusiness.validarLogin(login.getEmail(), login.getSenha());
 	}
+
 }
 
