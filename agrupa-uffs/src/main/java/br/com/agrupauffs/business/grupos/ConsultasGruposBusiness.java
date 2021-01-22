@@ -1,5 +1,6 @@
 package br.com.agrupauffs.business.grupos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
-import br.com.agrupauffs.controller.parametros.SolicitaEntrada;
 import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoUsuario;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudos;
@@ -63,7 +63,14 @@ public class ConsultasGruposBusiness {
 	 */
 	public ResponseEntity<List<EntidadeGrupoEstudoUsuario>> consultaUsuariosPendentesEmGrupo(int idGrupo) {
 		EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaGrupoDeEstudoEspecifico(idGrupo);
-		return new ResponseEntity<>(grupoDeEstudos.getGrupoEstudoUsuario(), HttpStatus.OK);
+		List<EntidadeGrupoEstudoUsuario> usuariosPendentes = new ArrayList<EntidadeGrupoEstudoUsuario>();
+		List<EntidadeGrupoEstudoUsuario> todosOsUsuarios = grupoDeEstudos.getGrupoEstudoUsuario();
+		for(EntidadeGrupoEstudoUsuario usuario : todosOsUsuarios) {
+			if(usuario.getPedidoPendente()) {
+				usuariosPendentes.add(usuario);
+			}
+		}
+		return new ResponseEntity<>(usuariosPendentes, HttpStatus.OK);
 	}
 
 	// To do

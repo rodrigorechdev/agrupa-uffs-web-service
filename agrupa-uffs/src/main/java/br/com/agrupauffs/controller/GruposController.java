@@ -24,12 +24,12 @@ public class GruposController {
 	@Autowired
 	ConsultasGruposBusiness consultasGruposBusiness;
 
-	@RequestMapping(value = "id/{idGrupo}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "id/{idGrupo}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<EntidadeGrupoDeEstudos> consultaGrupoEspecifico (@PathVariable int idGrupo) {
 		return consultasGruposBusiness.consultaGrupo(idGrupo);
 	}
 
-	@RequestMapping(value = "pendente/{idGrupo}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "pendente/{idGrupo}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<EntidadeGrupoEstudoUsuario>> consultaUsuariosPendentesEmGrupo (@PathVariable int idGrupo) {
 		return consultasGruposBusiness.consultaUsuariosPendentesEmGrupo(idGrupo);
 	}
