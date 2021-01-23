@@ -32,13 +32,15 @@ public class EntidadeNotificacao {
 	@Column(name = "fl_convite")
 	private Boolean flConvite;
 
-	@ManyToOne
-	@JoinColumn(name = "id_grupo_estudo")
-	private EntidadeGrupoDeEstudos idGrupoEstudo;
+	// @ManyToOne
+	// @JoinColumn(name = "id_grupo_estudo")
+	@Column(name = "id_grupo_estudo")
+	private Integer idGrupoEstudo;
 
-	@ManyToOne
-	@JoinColumn(name = "id_usuario")
-	private EntidadeUsuario idUsuario;
+	// @ManyToOne
+	// @JoinColumn(name = "id_usuario")
+	@Column(name = "id_usuario")
+	private Integer idUsuario;
 
 	@Column(name = "dt_atz")
 	private Date data;

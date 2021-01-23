@@ -1,5 +1,7 @@
 package br.com.agrupauffs.usuario;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,4 +20,7 @@ public interface QueryNotificacao extends CrudRepository<EntidadeNotificacao, In
     @Modifying
     @Query(value = "update usuario_notificacao set visualizada = 'true' where id_usuario_notificacao = :idUsuarioNotificacao", nativeQuery = true)
     public void visualizaNotificacao(@Param("idUsuarioNotificacao") int idUsuarioNotificacao); 
+
+    @Query(value = "select * from usuario_notificacao where id_usuario = :idUsuario", nativeQuery = true)
+    public List<EntidadeNotificacao> notificacoesDeUsuario(@Param("idUsuario") int idUsuario); 
 }
