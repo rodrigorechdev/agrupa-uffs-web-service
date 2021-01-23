@@ -44,5 +44,23 @@ public class EntidadeGrupoDeEstudos {
 	
 	@OneToMany(mappedBy = "grupoEstudo")
 	private List<EntidadeGrupoEstudoHorario> grupoEstudoHorario;
-	
+
+	/**
+	 * As classes que a entidade aponta passam a não apontar para ela de volta,
+	 * para não gerar um looping infinito
+	 */
+	public void limpaApontamentos(){
+		for(var registro : this.grupoEstudoUsuario) {
+			registro.setIdGrupoDeEstudos(null);
+		}
+
+		for(var registro : this.grupoEstudoCurso) {
+			registro.setGrupoDeEstudos(null);
+		}
+
+		for(var registro : this.grupoEstudoHorario) {
+			registro.setGrupoEstudo(null);
+		}
+	}
+
 }

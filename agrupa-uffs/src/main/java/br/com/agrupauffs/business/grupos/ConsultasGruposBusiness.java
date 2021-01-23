@@ -12,6 +12,7 @@ import br.com.agrupauffs.controller.parametros.AceitaOuRecusaMembro;
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
 import br.com.agrupauffs.controller.parametros.SolicitaEntrada;
 import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
+import br.com.agrupauffs.grupo.EntidadeGrupoEstudoCurso;
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoUsuario;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudos;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosUsuario;
@@ -39,6 +40,8 @@ public class ConsultasGruposBusiness {
 	 */
 	public ResponseEntity<EntidadeGrupoDeEstudos> consultaGrupo(int idGrupo) {
 		EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaGrupoDeEstudoEspecifico(idGrupo);
+		grupoDeEstudos.limpaApontamentos();
+	
 		return new ResponseEntity<>(grupoDeEstudos, HttpStatus.OK);
 	}
 
@@ -55,14 +58,27 @@ public class ConsultasGruposBusiness {
 		String pesquisa = pesquisaGrupo.getPesquisa();
 
 		if(pesquisa != null && pesquisa.length() != 0) {
-			return new ResponseEntity<>(queryGrupoDeEstudos.consultaGrupoDeEstudosPorPesquisa(pesquisa), HttpStatus.OK);
+			var grupos = queryGrupoDeEstudos.consultaGrupoDeEstudosPorPesquisa(pesquisa);
+			for(var grupo : grupos) {
+				grupo.limpaApontamentos();
+			}
+			return new ResponseEntity<>(grupos, HttpStatus.OK);
 		}
 
 		if(idCurso != null && idCurso.length() != 0) {
-			return new ResponseEntity<>(queryGrupoDeEstudos.consultaGrupoDeEstudosCurso(idCurso), HttpStatus.OK);
+			var grupos = queryGrupoDeEstudos.consultaGrupoDeEstudosCurso(idCurso);
+			for(var grupo : grupos) {
+				grupo.limpaApontamentos();
+			}
+			return new ResponseEntity<>(grupos, HttpStatus.OK);
 		}
-		
-		return new ResponseEntity<>(queryGrupoDeEstudos.consultaGrupoDeEstudos(), HttpStatus.OK);
+
+		var grupos = queryGrupoDeEstudos.consultaGrupoDeEstudos();
+		for(var grupo : grupos) {
+			grupo.limpaApontamentos();
+		}
+
+		return new ResponseEntity<>(grupos, HttpStatus.OK);
 	}
 
 	/**
@@ -71,7 +87,8 @@ public class ConsultasGruposBusiness {
 	 * @return
 	 */
 	public ResponseEntity<List<EntidadeGrupoEstudoUsuario>> consultaUsuariosPendentesEmGrupo(int idGrupo) {
-		EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaGrupoDeEstudoEspecifico(idGrupo);
+		EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaUsuariosPendentesEmGrupo(idGrupo);
+		grupoDeEstudos.limpaApontamentos();
 		List<EntidadeGrupoEstudoUsuario> usuariosPendentes = new ArrayList<EntidadeGrupoEstudoUsuario>();
 		List<EntidadeGrupoEstudoUsuario> todosOsUsuarios = grupoDeEstudos.getGrupoEstudoUsuario();
 		for(EntidadeGrupoEstudoUsuario usuario : todosOsUsuarios) {
@@ -108,7 +125,7 @@ public class ConsultasGruposBusiness {
 		int idUsuario = solicitaEntrada.getIdUsuario();
 		EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaGrupoDeEstudoEspecifico(idGrupo);
 		if(grupoDeEstudos.getPrivado()) {
-			var usuario = queryUsuario.consultaUsuario(idUsuario);
+			var usuario = queryUsuario.consultaUsuarioPorId(idUsuario);
 			var grupo = queryGrupoDeEstudos.consultaGrupoDeEstudosPorId(idGrupo);
 			String mensagemNotificacao = usuario.getNome() + " pediu para entrar no grupo " + grupo.getNomeDoGrupo();
 			queryNotificacao.insereNaTabela(idGrupo, idUsuario, mensagemNotificacao, true);

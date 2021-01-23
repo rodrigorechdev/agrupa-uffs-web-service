@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import br.com.agrupauffs.controller.parametros.NotificacoesDeUsuario;
 import br.com.agrupauffs.controller.parametros.VisualizaNotificacao;
 import br.com.agrupauffs.usuario.EntidadeNotificacao;
+import br.com.agrupauffs.usuario.EntidadeUsuario;
 import br.com.agrupauffs.usuario.QueryNotificacao;
+import br.com.agrupauffs.usuario.QueryUsuario;
 
 @Service
 public class UsuarioBusiness {
@@ -16,12 +18,21 @@ public class UsuarioBusiness {
     @Autowired
     QueryNotificacao queryNotificacao;
 
+    @Autowired
+    QueryUsuario queryUsuario;
+
     /**
      * Recebe o id de uma notificação e ela passa a ser marcada como visualizada.
      * @param body
      */
     public void visualizaNotificacao(VisualizaNotificacao body) {
         queryNotificacao.visualizaNotificacao(body.getIdNotificacao());
+    }
+
+    public EntidadeUsuario consultaUsuario(String email) {
+        EntidadeUsuario usuario = queryUsuario.consultaUsuarioPorEmail(email);
+        usuario.limpaApontamentos();
+        return usuario;
     }
 
     /**
