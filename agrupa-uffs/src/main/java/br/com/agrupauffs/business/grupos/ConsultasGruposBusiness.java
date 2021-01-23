@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import br.com.agrupauffs.controller.parametros.AceitaOuRecusaMembro;
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
@@ -18,7 +18,7 @@ import br.com.agrupauffs.grupo.QueryGrupoDeEstudosUsuario;
 import br.com.agrupauffs.usuario.QueryNotificacao;
 import br.com.agrupauffs.usuario.QueryUsuario;
 
-@Repository
+@Service
 public class ConsultasGruposBusiness {
 	
 	@Autowired

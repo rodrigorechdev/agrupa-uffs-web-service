@@ -14,4 +14,8 @@ public interface QueryNotificacao extends CrudRepository<EntidadeNotificacao, In
     @Query(value = "insert into usuario_notificacao (id_grupo_estudo, id_usuario, notificacao, visualizada, fl_convite) values (:idGrupo, :idUsuario, :mensagem, false, :convite)", nativeQuery = true)
     public void insereNaTabela(@Param("idGrupo") int idGrupo, @Param("idUsuario") int idUsuario, @Param("mensagem") String mensagem, @Param("convite") Boolean convite); 
 
+    @Transactional
+    @Modifying
+    @Query(value = "update usuario_notificacao set visualizada = 'true' where id_usuario_notificacao = :idUsuarioNotificacao", nativeQuery = true)
+    public void visualizaNotificacao(@Param("idUsuarioNotificacao") int idUsuarioNotificacao); 
 }
