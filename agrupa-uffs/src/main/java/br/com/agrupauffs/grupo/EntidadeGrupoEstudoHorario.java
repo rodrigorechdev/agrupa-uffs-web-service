@@ -25,7 +25,6 @@ public class EntidadeGrupoEstudoHorario {
 
     @ManyToOne
     @JoinColumn(name = "id_grupo_estudo")
-    @Getter(AccessLevel.NONE)
     EntidadeGrupoDeEstudos grupoEstudo;
 
     @Column(name = "segunda")

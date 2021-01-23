@@ -25,7 +25,6 @@ public class EntidadeGrupoEstudoUsuario {
 	@Column(name = "id_grupo_estudo_usuario")
 	private Integer idGrupoEstudoUsuario;
 
-	@Getter(AccessLevel.NONE)
 	@ManyToOne
 	@JoinColumn(name = "id_grupo_estudo")
 	private EntidadeGrupoDeEstudos idGrupoDeEstudos;
