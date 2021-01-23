@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrupauffs.business.grupos.ConsultasGruposBusiness;
+import br.com.agrupauffs.controller.parametros.AceitaOuRecusaMembro;
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
 import br.com.agrupauffs.controller.parametros.SolicitaEntrada;
 import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
@@ -35,14 +36,18 @@ public class GruposController {
 	}
 	
 	@RequestMapping(value = "pesquisa", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<EntidadeGrupoDeEstudos>> pesquisaGrupoDeEstudo (@RequestBody PesquisaGrupo pesquisaGrupo) {
-		return consultasGruposBusiness.pesquisaGrupoDeEstudo(pesquisaGrupo);
+	public ResponseEntity<List<EntidadeGrupoDeEstudos>> pesquisaGrupoDeEstudo (@RequestBody PesquisaGrupo body) {
+		return consultasGruposBusiness.pesquisaGrupoDeEstudo(body);
 	}
 
-	//To do
-	// @RequestMapping(value = "entrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	// public ResponseEntity<Boolean> usuarioSolicitaEntradaGrupo (@RequestBody SolicitaEntrada solicitaEntrada) {
-	// 	return consultasGruposBusiness.solicitaEntradaEmGrupo(solicitaEntrada);
-	// }
+	@RequestMapping(value = "membro/novo", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void aceitaOuRecusaMembro (@RequestBody AceitaOuRecusaMembro body) {
+		consultasGruposBusiness.aceitaOuRecusaMembro(body);
+	}
+
+	@RequestMapping(value = "entrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> usuarioSolicitaEntradaGrupo (@RequestBody SolicitaEntrada solicitaEntrada) {
+		return consultasGruposBusiness.solicitaEntradaEmGrupo(solicitaEntrada);
+	}
 
 }

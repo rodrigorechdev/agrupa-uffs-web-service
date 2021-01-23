@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface QueryGrupoDeEstudos extends CrudRepository<EntidadeGrupoDeEstudos, Integer> {
 	
 	@Query(value = "select * from grupo_estudo where id_grupo_estudo = :id", nativeQuery = true)
-	List<EntidadeGrupoDeEstudos> consultaGrupoDeEstudosPorId(@Param("id") int id); 
+	EntidadeGrupoDeEstudos consultaGrupoDeEstudosPorId(@Param("id") int id); 
 	
 	@Query(value = "select * from grupo_estudo where nm_grupo like %:pesquisa%", nativeQuery = true)
 	List<EntidadeGrupoDeEstudos> consultaGrupoDeEstudosPorPesquisa(@Param("pesquisa") String pesquisa); 
