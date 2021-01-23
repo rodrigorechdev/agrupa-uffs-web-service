@@ -1,4 +1,4 @@
-package br.com.agrupauffs.grupo;
+package br.com.agrupauffs.usuario;
 
 import java.util.Date;
 
@@ -9,29 +9,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.agrupauffs.grupo.EntidadeCurso;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "grupo_estudo_curso")
+@Table(name = "usuario_perfil_cursos_interesse")
 @Entity
-public class EntidadeGrupoEstudoCurso {
+public class EntidadeUsuarioCursos {
 
 	@Id
-	@Column(name = "id_grupo_estudo_curso")
-	private Integer idGrupoEstudoCurso;
-
+	@Column(name = "id_usuario_perfil_cursos_interesse")
+	Integer idUsuarioPerfilCursosInteresse;
+	
 	@ManyToOne
-	@JoinColumn(name = "id_grupo_estudo")
-	private EntidadeGrupoDeEstudos grupoDeEstudos;
-
+	@JoinColumn(name = "id_usuario")
+	EntidadeUsuario idUsuario;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_curso")
-	private EntidadeCurso curso;
-
+	EntidadeCurso idCurso;
+	
 	@Column(name = "dt_atz")
-	private Date data;
-
+	Date data;
+	
 }

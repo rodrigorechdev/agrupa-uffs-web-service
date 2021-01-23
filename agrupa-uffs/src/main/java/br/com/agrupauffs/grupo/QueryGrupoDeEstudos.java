@@ -20,6 +20,9 @@ public interface QueryGrupoDeEstudos extends CrudRepository<EntidadeGrupoDeEstud
 	@Query(value = "select * from grupo_estudo_curso gec join grupo_estudo ge on gec.id_grupo_estudo = ge.id_grupo_estudo join curso c on gec.id_curso = c.id_curso where c.id_curso = :curso", nativeQuery = true)
 	List<EntidadeGrupoDeEstudos> consultaGrupoDeEstudosCurso(@Param("curso") String idCurso); 
 	
-	@Query(value = "select * from grupo_estudo as ge join grupo_estudo_usuario as ges on ge.id_grupo_estudo = ges.id_grupo_estudo where pedido_pendente = true and ge.id_grupo_estudo = :idGrupo", nativeQuery = true)
+	@Query(value = "select * from grupo_estudo where id_grupo_estudo = :idGrupo", nativeQuery = true)
 	EntidadeGrupoDeEstudos consultaGrupoDeEstudoEspecifico(@Param("idGrupo") int idGrupo); 
+
+	@Query(value = "select * from grupo_estudo as ge join grupo_estudo_usuario as ges on ge.id_grupo_estudo = ges.id_grupo_estudo where pedido_pendente = true and ge.id_grupo_estudo = :idGrupo", nativeQuery = true)
+	EntidadeGrupoDeEstudos consultaUsuariosPendentesEmGrupo(@Param("idGrupo") int idGrupo); 
 }
