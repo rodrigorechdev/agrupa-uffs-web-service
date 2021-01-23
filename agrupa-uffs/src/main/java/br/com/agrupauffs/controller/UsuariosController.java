@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.agrupauffs.DTO.LoginDTO;
-import br.com.agrupauffs.business.usuarios.LoginBusiness;
 import br.com.agrupauffs.business.usuarios.UsuarioBusiness;
+import br.com.agrupauffs.controller.parametros.Login;
 import br.com.agrupauffs.controller.parametros.NotificacoesDeUsuario;
 import br.com.agrupauffs.controller.parametros.VisualizaNotificacao;
 import br.com.agrupauffs.usuario.EntidadeNotificacao;
@@ -27,9 +26,8 @@ public class UsuariosController {
 	UsuarioBusiness usuarioBusiness;
 
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean validarLogin(@RequestBody LoginDTO login) {
-		var loginBusiness = new LoginBusiness();
-		return loginBusiness.validarLogin(login.getEmail(), login.getSenha());
+	public boolean validarLogin(@RequestBody Login login) {
+		return usuarioBusiness.validarLogin(login);
 	}
 
 	@RequestMapping(value = "notificacao/visualiza", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
