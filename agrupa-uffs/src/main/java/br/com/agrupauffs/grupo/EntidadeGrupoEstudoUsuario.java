@@ -19,7 +19,6 @@ import lombok.ToString;
 @Setter
 @Entity
 @Table(name = "grupo_estudo_usuario")
-@ToString
 public class EntidadeGrupoEstudoUsuario {
 
 	@Id

@@ -8,11 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
+import br.com.agrupauffs.controller.parametros.AceitaOuRecusaMembro;
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
+import br.com.agrupauffs.controller.parametros.SolicitaEntrada;
 import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoUsuario;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudos;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosUsuario;
+import br.com.agrupauffs.usuario.QueryNotificacao;
+import br.com.agrupauffs.usuario.QueryUsuario;
 
 @Repository
 public class ConsultasGruposBusiness {
@@ -23,6 +27,11 @@ public class ConsultasGruposBusiness {
 	@Autowired
 	QueryGrupoDeEstudosUsuario queryGrupoDeEstudosUsuario;
 
+	@Autowired
+	QueryNotificacao queryNotificacao;
+
+	@Autowired
+	QueryUsuario queryUsuario;
 	/**
 	 * Endpoint recebe a chave de um grupo e consulta dados do grupo e usuários do grupo.
 	 * @param idGrupo
@@ -73,23 +82,42 @@ public class ConsultasGruposBusiness {
 		return new ResponseEntity<>(usuariosPendentes, HttpStatus.OK);
 	}
 
-	// To do
-	// /**
-	//  * Solicita entrada de usuário em grupo caso o grupo seja privado. Caso não seja o usuário entra automaticamente.
-	//  * @param solicitaEntrada
-	//  * @return
-	//  */
-	// public ResponseEntity<Boolean> solicitaEntradaEmGrupo(SolicitaEntrada solicitaEntrada) {
-	// 	int idGrupo = solicitaEntrada.getIdGrupo();
-	// 	int idUsuario = solicitaEntrada.getIdUsuario();
-	// 	EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaGrupoDeEstudoEspecifico(idGrupo);
-	// 	if(grupoDeEstudos.getPrivado()) {
-	// 		//to do
-	// 		//implementar notificacao
-	// 	}
-	// 	else {
-	// 		queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario);
-	// 	}
-	// 	return new ResponseEntity<>(true, HttpStatus.OK);
-	// }
+	/**
+	 *	Recebe se a entrada de um usuário foi aceita ou recusada em um grupo de estudos.
+	 *	Altera o banco de dados baseado na aceitação ou exclusão.
+	 ** @param body
+	 * @return
+	 */
+	public void aceitaOuRecusaMembro(AceitaOuRecusaMembro body) {
+
+		if(body.getAceitaMembro()) {
+			queryGrupoDeEstudosUsuario.atualizaUsuario(body.getIdGrupo(), body.getIdUsuario());
+		}
+		else {
+			queryGrupoDeEstudosUsuario.deletaUsuario(body.getIdGrupo(), body.getIdUsuario());
+		}
+	}
+
+	/**
+	 * Solicita entrada de usuário em grupo caso o grupo seja privado. Caso não seja o usuário entra automaticamente.
+	 * @param solicitaEntrada
+	 * @return
+	 */
+	public ResponseEntity<Boolean> solicitaEntradaEmGrupo(SolicitaEntrada solicitaEntrada) {
+		int idGrupo = solicitaEntrada.getIdGrupo();
+		int idUsuario = solicitaEntrada.getIdUsuario();
+		EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaGrupoDeEstudoEspecifico(idGrupo);
+		if(grupoDeEstudos.getPrivado()) {
+			var usuario = queryUsuario.consultaUsuario(idUsuario);
+			var grupo = queryGrupoDeEstudos.consultaGrupoDeEstudosPorId(idGrupo);
+			String mensagemNotificacao = usuario.getNome() + " pediu para entrar no grupo " + grupo.getNomeDoGrupo();
+			queryNotificacao.insereNaTabela(idGrupo, idUsuario, mensagemNotificacao, true);
+			queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario, true);
+			
+		}
+		else {
+			queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario, false);
+		}
+		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
 }
