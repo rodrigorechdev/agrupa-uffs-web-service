@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoUsuario;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,7 +54,7 @@ public class EntidadeUsuario {
 	@OneToMany(mappedBy = "usuario")
 	private List<EntidadeGrupoEstudoUsuario> entidadeGrupoEstudoUsuario;
 
-	public void limpaApontamentos(){
+	public void limpaApontamentos() {
 		for(var registro : this.entidadeUsuarioCursos) {
 			registro.setIdUsuario(null);
 		}
@@ -64,5 +65,10 @@ public class EntidadeUsuario {
 			registro.getIdGrupoDeEstudos().setGrupoEstudoHorario(null);
 			registro.getIdGrupoDeEstudos().setGrupoEstudoUsuario(null);
 		}
+	}
+
+	public void anulaApontamentos() {
+		this.entidadeGrupoEstudoUsuario = null;
+		this.entidadeUsuarioCursos = null;
 	}
 }

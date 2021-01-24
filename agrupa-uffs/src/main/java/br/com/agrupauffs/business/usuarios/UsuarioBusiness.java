@@ -30,12 +30,6 @@ public class UsuarioBusiness {
         queryNotificacao.visualizaNotificacao(body.getIdNotificacao());
     }
 
-    public EntidadeUsuario consultaUsuario(String email) {
-        EntidadeUsuario usuario = queryUsuario.consultaUsuarioPorEmail(email);
-        usuario.limpaApontamentos();
-        return usuario;
-    }
-
     /**
      * Consulta usuário por e-mail
      * @param email
