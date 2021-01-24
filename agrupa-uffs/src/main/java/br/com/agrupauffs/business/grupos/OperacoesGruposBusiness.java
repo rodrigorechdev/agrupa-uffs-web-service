@@ -6,19 +6,23 @@ import org.springframework.stereotype.Service;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupo;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupoEstudoUsuario;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupoHorario;
+import br.com.agrupauffs.controller.parametros.AtualizaUsuario;
 import br.com.agrupauffs.controller.parametros.AtualizaUsuarioCurso;
 import br.com.agrupauffs.controller.parametros.DeletaGrupoEstudoUsuario;
 import br.com.agrupauffs.controller.parametros.DeletaUsuarioCursos;
 import br.com.agrupauffs.controller.parametros.DeleteGrupo;
 import br.com.agrupauffs.controller.parametros.DeleteGrupoHorario;
+import br.com.agrupauffs.controller.parametros.DeleteUsuario;
 import br.com.agrupauffs.controller.parametros.NovoGrupo;
 import br.com.agrupauffs.controller.parametros.NovoGrupoEstudosUsuario;
 import br.com.agrupauffs.controller.parametros.NovoGrupoHorario;
+import br.com.agrupauffs.controller.parametros.NovoUsuario;
 import br.com.agrupauffs.controller.parametros.NovoUsuarioCursos;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudos;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosHorario;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosUsuario;
 import br.com.agrupauffs.usuario.QueryPerfilCursosInteresse;
+import br.com.agrupauffs.usuario.QueryUsuario;
 
 /**
  * Operações que não são consultas relacionadas aos grupos de estudo.
@@ -38,6 +42,9 @@ public class OperacoesGruposBusiness {
     @Autowired
     QueryPerfilCursosInteresse queryPerfilCursosInteresse;
 
+    @Autowired
+    QueryUsuario queryUsuario;
+    
     /**
      * Cria novo grupo de estudos
      * @param novoGrupo
@@ -171,7 +178,7 @@ public class OperacoesGruposBusiness {
     }
 
         /**
-     * Atualiza grupo_estudos_usuario baseado no id do grupo e id do usuario
+     * Atualiza registro em grupo_estudos_usuario baseado no id do grupo e id do usuario
      * @param body
      */
     public Boolean atualizaGrupoEstudoUsuario(AtualizaGrupoEstudoUsuario body) {
@@ -186,7 +193,7 @@ public class OperacoesGruposBusiness {
     }
 
     /**
-     * Cria novo grupo_estudos_horarios
+     * Cria novo registro em grupo_estudos_horarios
      * @param novoGrupo
      */
     public Boolean criaUsuarioCursos(NovoUsuarioCursos body) {
@@ -201,7 +208,7 @@ public class OperacoesGruposBusiness {
     }
     
     /**
-     * Deleta tabela de relacionamento de usuario com cursos de interesse
+     * Deleta registro da tabela de relacionamento de usuario com cursos de interesse
      * @param novoGrupo
      */
     public Boolean deletaUsuarioCursos(DeletaUsuarioCursos body) {
@@ -216,7 +223,7 @@ public class OperacoesGruposBusiness {
     }
 
     /**
-     * Atualiza tabela de relacionamento de usuario com cursos de interesse
+     * Atualiza registro da tabela de relacionamento de usuario com cursos de interesse
      * @param body
      */
     public Boolean atualizaUsuarioCursos(AtualizaUsuarioCurso body) {
@@ -229,4 +236,52 @@ public class OperacoesGruposBusiness {
             return false;
         }
     }
+
+    /**
+     * Cria novo usuario
+     * @param novoGrupo
+     */
+    public Boolean criaUsuario(NovoUsuario body) {
+        try {
+            queryUsuario.insere(body.getCdUsuario(), body.getSenha(), body.getEmail(), body.getNome(),
+            body.getEndereco(), body.getDescricao());
+            return true;
+        }        
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Deleta registro de tabela usuario baseado no id recebido
+     * @param novoGrupo
+     */
+    public Boolean deletaUsuario(DeleteUsuario body) {
+        try {
+            queryUsuario.deleta(body.getId());
+            return true;
+        }        
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Atualiza registro da tabela usuario
+     * @param body
+     */
+    public Boolean atualizaUsuario(AtualizaUsuario body) {
+        try {
+            queryUsuario.atualiza(body.getCdUsuario(), body.getSenha(), body.getEmail(), body.getNome(),
+            body.getEndereco(), body.getDescricao(), body.getIdUsuario());
+            return true;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }

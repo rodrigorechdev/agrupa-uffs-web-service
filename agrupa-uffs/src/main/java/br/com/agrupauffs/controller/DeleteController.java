@@ -12,6 +12,7 @@ import br.com.agrupauffs.controller.parametros.DeletaGrupoEstudoUsuario;
 import br.com.agrupauffs.controller.parametros.DeletaUsuarioCursos;
 import br.com.agrupauffs.controller.parametros.DeleteGrupo;
 import br.com.agrupauffs.controller.parametros.DeleteGrupoHorario;
+import br.com.agrupauffs.controller.parametros.DeleteUsuario;
 
 @RequestMapping("delete/")
 @RestController
@@ -41,5 +42,8 @@ public class DeleteController {
 		return operacoesGruposBusiness.deletaUsuarioCursos(body);
 	}
 
-	
+	@RequestMapping(value = "usuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean deletaUsuario (@RequestBody DeleteUsuario body) {
+		return operacoesGruposBusiness.deletaUsuario(body);
+	}
 }
