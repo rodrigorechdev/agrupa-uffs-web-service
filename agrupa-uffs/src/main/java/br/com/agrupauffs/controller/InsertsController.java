@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrupauffs.business.grupos.OperacoesGruposBusiness;
 import br.com.agrupauffs.controller.parametros.NovoGrupo;
-import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
+import br.com.agrupauffs.controller.parametros.NovoGrupoHorario;
 
 @RequestMapping("insert/")
 @RestController
@@ -19,8 +19,13 @@ public class InsertsController {
     OperacoesGruposBusiness operacoesGruposBusiness;
 
     @RequestMapping(value = "grupo", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Boolean consultaGrupoEspecifico (@RequestBody NovoGrupo novoGrupo) {
+	public Boolean insereGrupo (@RequestBody NovoGrupo novoGrupo) {
 		return operacoesGruposBusiness.criaGrupo(novoGrupo);
 	}
 
+    
+    @RequestMapping(value = "grupo_horario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean insereGrupoHorario (@RequestBody NovoGrupoHorario novoGrupoHorario) {
+		return operacoesGruposBusiness.criaGrupoEstudoHorarios(novoGrupoHorario);
+	}
 }
