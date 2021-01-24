@@ -44,5 +44,6 @@ public class UsuariosController {
 	public List<EntidadeNotificacao> encontraNotificacoesDeUsuario(@RequestBody NotificacoesDeUsuario body) {
 		return usuarioBusiness.notificacoesDeUsuario(body);
 	}
+
 }
 

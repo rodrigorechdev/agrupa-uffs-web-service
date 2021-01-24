@@ -41,7 +41,6 @@ public class ConsultasGruposBusiness {
 	public ResponseEntity<EntidadeGrupoDeEstudos> consultaGrupo(int idGrupo) {
 		EntidadeGrupoDeEstudos grupoDeEstudos = queryGrupoDeEstudos.consultaGrupoDeEstudoEspecifico(idGrupo);
 		grupoDeEstudos.limpaApontamentos();
-	
 		return new ResponseEntity<>(grupoDeEstudos, HttpStatus.OK);
 	}
 

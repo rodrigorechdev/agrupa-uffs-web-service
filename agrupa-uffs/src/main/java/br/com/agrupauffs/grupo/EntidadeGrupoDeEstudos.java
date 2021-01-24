@@ -61,6 +61,15 @@ public class EntidadeGrupoDeEstudos {
 		for(var registro : this.grupoEstudoHorario) {
 			registro.setGrupoEstudo(null);
 		}
+
+		try {
+			for(EntidadeGrupoEstudoUsuario registro : this.grupoEstudoUsuario) {
+				registro.getUsuario().anulaApontamentos();
+			}
+		}
+		catch (Exception e){
+			System.out.println("Erro ao anular apontamentos de EntidadeGrupoDeEstudos");
+		}
 	}
 
 }
