@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrupauffs.business.grupos.OperacoesGruposBusiness;
 import br.com.agrupauffs.controller.parametros.DeletaGrupoEstudoUsuario;
+import br.com.agrupauffs.controller.parametros.DeletaUsuarioCursos;
 import br.com.agrupauffs.controller.parametros.DeleteGrupo;
 import br.com.agrupauffs.controller.parametros.DeleteGrupoHorario;
 
@@ -34,4 +35,11 @@ public class DeleteController {
 	public Boolean deletaGrupoHorario (@RequestBody DeletaGrupoEstudoUsuario body) {
 		return operacoesGruposBusiness.deletaGrupoEstudoUsuario(body);
 	}
+
+	@RequestMapping(value = "usuario_cursos", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean deletaGrupoHorario (@RequestBody DeletaUsuarioCursos body) {
+		return operacoesGruposBusiness.deletaUsuarioCursos(body);
+	}
+
+	
 }

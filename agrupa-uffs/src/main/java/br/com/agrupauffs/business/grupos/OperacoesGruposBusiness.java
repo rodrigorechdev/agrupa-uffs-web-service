@@ -6,15 +6,19 @@ import org.springframework.stereotype.Service;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupo;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupoEstudoUsuario;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupoHorario;
+import br.com.agrupauffs.controller.parametros.AtualizaUsuarioCurso;
 import br.com.agrupauffs.controller.parametros.DeletaGrupoEstudoUsuario;
+import br.com.agrupauffs.controller.parametros.DeletaUsuarioCursos;
 import br.com.agrupauffs.controller.parametros.DeleteGrupo;
 import br.com.agrupauffs.controller.parametros.DeleteGrupoHorario;
 import br.com.agrupauffs.controller.parametros.NovoGrupo;
 import br.com.agrupauffs.controller.parametros.NovoGrupoEstudosUsuario;
 import br.com.agrupauffs.controller.parametros.NovoGrupoHorario;
+import br.com.agrupauffs.controller.parametros.NovoUsuarioCursos;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudos;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosHorario;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosUsuario;
+import br.com.agrupauffs.usuario.QueryPerfilCursosInteresse;
 
 /**
  * Operações que não são consultas relacionadas aos grupos de estudo.
@@ -31,6 +35,9 @@ public class OperacoesGruposBusiness {
     @Autowired
     QueryGrupoDeEstudosHorario queryGrupoDeEstudosHorario;
     
+    @Autowired
+    QueryPerfilCursosInteresse queryPerfilCursosInteresse;
+
     /**
      * Cria novo grupo de estudos
      * @param novoGrupo
@@ -170,6 +177,51 @@ public class OperacoesGruposBusiness {
     public Boolean atualizaGrupoEstudoUsuario(AtualizaGrupoEstudoUsuario body) {
         try {
             queryGrupoDeEstudosUsuario.atualizaUsuarioCompleto(body.getPedidoPendente(), body.getAdministrador(), body.getIdGrupoEstudo(), body.getIdUsuario());          
+            return true;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Cria novo grupo_estudos_horarios
+     * @param novoGrupo
+     */
+    public Boolean criaUsuarioCursos(NovoUsuarioCursos body) {
+        try {
+            queryPerfilCursosInteresse.insere(body.getIdGrupo(), body.getIdUsuario());
+            return true;
+        }        
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Deleta tabela de relacionamento de usuario com cursos de interesse
+     * @param novoGrupo
+     */
+    public Boolean deletaUsuarioCursos(DeletaUsuarioCursos body) {
+        try {
+            queryPerfilCursosInteresse.deleta(body.getId());
+            return true;
+        }        
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Atualiza tabela de relacionamento de usuario com cursos de interesse
+     * @param body
+     */
+    public Boolean atualizaUsuarioCursos(AtualizaUsuarioCurso body) {
+        try {
+            queryPerfilCursosInteresse.atualiza(body.getIdUsuario(), body.getIdCurso(), body.getIdUsuarioPerfilCursosInteresse());          
             return true;
         }
         catch(Exception e) {
