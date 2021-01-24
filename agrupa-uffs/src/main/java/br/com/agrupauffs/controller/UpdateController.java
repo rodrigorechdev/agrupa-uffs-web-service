@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agrupauffs.business.grupos.OperacoesGruposBusiness;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupo;
+import br.com.agrupauffs.controller.parametros.AtualizaGrupoEstudoUsuario;
 import br.com.agrupauffs.controller.parametros.AtualizaGrupoHorario;
 
 @RequestMapping("update/")
@@ -25,5 +26,10 @@ public class UpdateController {
     @RequestMapping(value = "grupo_horario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean atualizaGrupo (@RequestBody AtualizaGrupoHorario body) {
 		return operacoesGruposBusiness.atualizaGrupoHorario(body);
+    }
+    
+    @RequestMapping(value = "grupo_estudo_usuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean atualizaGrupoEstudoUsuario (@RequestBody AtualizaGrupoEstudoUsuario body) {
+		return operacoesGruposBusiness.atualizaGrupoEstudoUsuario(body);
 	}
 }

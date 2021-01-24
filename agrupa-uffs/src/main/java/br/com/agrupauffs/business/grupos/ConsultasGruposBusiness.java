@@ -128,11 +128,11 @@ public class ConsultasGruposBusiness {
 			var grupo = queryGrupoDeEstudos.consultaGrupoDeEstudosPorId(idGrupo);
 			String mensagemNotificacao = usuario.getNome() + " pediu para entrar no grupo " + grupo.getNomeDoGrupo();
 			queryNotificacao.insereNaTabela(idGrupo, idUsuario, mensagemNotificacao, true);
-			queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario, true);
+			queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario, true, false);
 			
 		}
 		else {
-			queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario, false);
+			queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario, false, false);
 		}
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
