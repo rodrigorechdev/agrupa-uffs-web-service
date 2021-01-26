@@ -1,11 +1,11 @@
-package br.com.agrupauffs.DTO;
+package br.com.agrupauffs.controller.parametros;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginDTO {
+public class Login {
 	
 	private String email, senha;
 	
