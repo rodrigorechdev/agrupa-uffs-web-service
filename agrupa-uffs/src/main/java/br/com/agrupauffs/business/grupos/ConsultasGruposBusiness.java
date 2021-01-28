@@ -1,6 +1,7 @@
 package br.com.agrupauffs.business.grupos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,12 @@ import org.springframework.stereotype.Service;
 import br.com.agrupauffs.controller.parametros.AceitaOuRecusaMembro;
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
 import br.com.agrupauffs.controller.parametros.SolicitaEntrada;
+import br.com.agrupauffs.grupo.EntidadeCurso;
 import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
+import br.com.agrupauffs.grupo.EntidadeGrupoEstudoCurso;
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoUsuario;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudos;
+import br.com.agrupauffs.grupo.QueryGrupoDeEstudosCurso;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosUsuario;
 import br.com.agrupauffs.usuario.QueryNotificacao;
 import br.com.agrupauffs.usuario.QueryUsuario;
@@ -26,6 +30,9 @@ public class ConsultasGruposBusiness {
 
 	@Autowired
 	QueryGrupoDeEstudosUsuario queryGrupoDeEstudosUsuario;
+	
+	@Autowired
+	QueryGrupoDeEstudosCurso queryGrupoDeEstudosCurso;
 
 	@Autowired
 	QueryNotificacao queryNotificacao;
@@ -159,6 +166,12 @@ public class ConsultasGruposBusiness {
 	 */
 	public ResponseEntity<Boolean> editarGrupo(EntidadeGrupoDeEstudos grupo) {
 		queryGrupoDeEstudos.atualizaGrupo(grupo.getIdGrupo(), grupo.getNomeDoGrupo(), grupo.getDescricao(), grupo.getPrivado());
+		queryGrupoDeEstudosCurso.clear(grupo.getIdGrupo());
+		
+		for (EntidadeGrupoEstudoCurso gec : grupo.getGrupoEstudoCurso()) {
+			queryGrupoDeEstudosCurso.insert(grupo.getIdGrupo(), gec.getCurso().getIdCurso(), new Date());
+		};
+		
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 }

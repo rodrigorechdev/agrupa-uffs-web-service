@@ -1,5 +1,7 @@
 package br.com.agrupauffs.business.grupos;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +53,7 @@ public class OperacoesGruposBusiness {
      */
     public Boolean criaGrupo(NovoGrupo novoGrupo) {
         try {
-            queryGrupoDeEstudos.insereGrupo(novoGrupo.getNome(), novoGrupo.getDescricao(), novoGrupo.getPrivado());
+            queryGrupoDeEstudos.insereGrupo(novoGrupo.getNome(), novoGrupo.getDescricao(), novoGrupo.getPrivado(), new Date());
             return true;
         }        
         catch(Exception e) {
