@@ -12,7 +12,6 @@ import br.com.agrupauffs.controller.parametros.AceitaOuRecusaMembro;
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
 import br.com.agrupauffs.controller.parametros.SolicitaEntrada;
 import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
-import br.com.agrupauffs.grupo.EntidadeGrupoEstudoCurso;
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoUsuario;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudos;
 import br.com.agrupauffs.grupo.QueryGrupoDeEstudosUsuario;
@@ -134,6 +133,32 @@ public class ConsultasGruposBusiness {
 		else {
 			queryGrupoDeEstudosUsuario.insereNaTabela(idGrupo, idUsuario, false, false);
 		}
+		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+	
+	/**
+	 * Cria grupo
+	 * @param solicitaEntrada
+	 * @return
+	 */
+	public ResponseEntity<Boolean> criarGrupo(EntidadeGrupoDeEstudos grupo) {
+		List<EntidadeGrupoDeEstudos> grupos = queryGrupoDeEstudos.consultaGrupoDeEstudosPorPesquisa(grupo.getNomeDoGrupo());
+		
+		if (grupos.isEmpty()) {
+			queryGrupoDeEstudos.insereGrupo(grupo.getNomeDoGrupo(), grupo.getDescricao(), grupo.getPrivado(), grupo.getData());
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(false, HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+	}
+	
+	/**
+	 * Cria grupo
+	 * @param solicitaEntrada
+	 * @return
+	 */
+	public ResponseEntity<Boolean> editarGrupo(EntidadeGrupoDeEstudos grupo) {
+		queryGrupoDeEstudos.atualizaGrupo(grupo.getIdGrupo(), grupo.getNomeDoGrupo(), grupo.getDescricao(), grupo.getPrivado());
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 }

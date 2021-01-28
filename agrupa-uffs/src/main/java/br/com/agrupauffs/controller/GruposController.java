@@ -49,5 +49,14 @@ public class GruposController {
 	public ResponseEntity<Boolean> usuarioSolicitaEntradaGrupo (@RequestBody SolicitaEntrada solicitaEntrada) {
 		return consultasGruposBusiness.solicitaEntradaEmGrupo(solicitaEntrada);
 	}
-
+	
+	@RequestMapping(value = "criar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> criarGrupo(@RequestBody EntidadeGrupoDeEstudos grupo) {
+		return consultasGruposBusiness.criarGrupo(grupo);
+	}
+	
+	@RequestMapping(value = "editar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> editarGrupo(@RequestBody EntidadeGrupoDeEstudos grupo) {
+		return consultasGruposBusiness.editarGrupo(grupo);
+	}
 }

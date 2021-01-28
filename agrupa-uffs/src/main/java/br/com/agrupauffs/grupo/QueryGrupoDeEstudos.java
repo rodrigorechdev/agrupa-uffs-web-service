@@ -1,5 +1,6 @@
 package br.com.agrupauffs.grupo;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -31,8 +32,8 @@ public interface QueryGrupoDeEstudos extends CrudRepository<EntidadeGrupoDeEstud
 
 	@Transactional
 	@Modifying
-	@Query(value = "insert into grupo_estudo (nm_grupo, descricao, privado) values (:nm_grupo, :descricao, :privado)", nativeQuery = true)
-	public void insereGrupo(@Param("nm_grupo") String nomeGrupo, @Param("descricao") String descricao, @Param("privado") Boolean privado); 
+	@Query(value = "insert into grupo_estudo (nm_grupo, descricao, privado, dt_atz) values (:nm_grupo, :descricao, :privado, :dt_atz)", nativeQuery = true)
+	public void insereGrupo(@Param("nm_grupo") String nomeGrupo, @Param("descricao") String descricao, @Param("privado") Boolean privado, @Param("dt_atz") Date dt_atz); 
 
 	@Transactional
 	@Modifying
