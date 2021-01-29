@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import br.com.agrupauffs.controller.parametros.AceitaOuRecusaMembro;
 import br.com.agrupauffs.controller.parametros.PesquisaGrupo;
 import br.com.agrupauffs.controller.parametros.SolicitaEntrada;
-import br.com.agrupauffs.grupo.EntidadeCurso;
 import br.com.agrupauffs.grupo.EntidadeGrupoDeEstudos;
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoCurso;
 import br.com.agrupauffs.grupo.EntidadeGrupoEstudoUsuario;
